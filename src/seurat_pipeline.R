@@ -51,12 +51,7 @@ source(config_file)
 import_libraries()
 
 
-
-
-
-# Sample-specific parameters ----------------------------------------------
-
-# Paths specific to sample
+# Define paths to output plots
 #cluster_dir <- file.path(sample_dir, "clusters-markers/")
 path_QC <- file.path(output_plots, "01_QC")
 path_DR <- file.path(output_plots, "02_dim_reduction")
@@ -91,5 +86,32 @@ plot_metrics(seurat_object,
              vln_plot = file.path(path_QC, "vln_plot.png"), 
              feature_scatter_plot = file.path(path_QC, "feature-scatter.png"), 
              plots.on = plots.on)
+
+
+
+
+
+# Dimensionality reduction ------------------------------------------------
+
+# Based on plots, select cells to keep
+if (all_features) { 
+  seurat_object <- subset(x = seurat_object, 
+                          subset = percent.mt < max_percent_mt)
+} else {
+  seurat_object <- subset(x = seurat_object, 
+                          subset = nFeature_RNA > min_nFeature_RNA & nFeature_RNA < max_nFeature_RNA & percent.mt < max_percent_mt)
+}
+
+# Normalise data
+seurat_object_NORMALISED <- NormalizeData(object = seurat_object) 
+
+# scTransform and detect dimensionality
+seurat_object <- runSCTransform_and_PCA(seurat_object)
+plot_variable_features(seurat_object, 
+                       variable_feature_plot = file.path(path_DR, "variable_features.png"))
+determine_dimensionality(seurat_object, 
+                         elbow_plot = file.path(path_DR, "elbow-plot.png"))
+
+
 
 

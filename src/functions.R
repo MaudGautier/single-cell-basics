@@ -85,3 +85,55 @@ plot_metrics <- function(sc.seurat,
 
 
 
+
+
+# Reduce dimensionality ---------------------------------------------------
+
+# Dimnesionality reduction:
+# Scales the data, identifies main features based on highly expressed genes 
+# and runs PCA to detetermine dimensionality of the dataset (nb of dimensions
+# to reduce the datast to)
+
+
+# Data scaling and feature selection
+runSCTransform_and_PCA <- function(sc.seurat) {
+  
+  # Scale data with SCTransform OR ScaleData
+  sc.seurat <- SCTransform(object = sc.seurat)
+  
+  # Run PCA
+  sc.seurat <- RunPCA(object = sc.seurat)
+  
+  # Return
+  return(sc.seurat)
+  
+}
+
+# Plot variable features
+plot_variable_features <- function(sc.seurat, 
+                                   variable_feature_plot) {
+  
+  # Identify the 10 most highly variable genes
+  var.features.top10 <- head(x = VariableFeatures(object = sc.seurat), 10)
+  
+  # plot variable features with and without labels
+  plot1 <- VariableFeaturePlot(object = sc.seurat)
+  plot2 <- LabelPoints(plot = plot1, points = var.features.top10, repel = TRUE)
+  #CombinePlots(plots = list(plot1, plot2))
+  if (plots.on) { png(variable_feature_plot, width = 1500, height=1000, unit="px") }
+  print(plot2)
+  if (plots.on) { dev.off() }
+  
+}
+
+# Determine dimensionality with PCA
+determine_dimensionality <- function(sc.seurat, 
+                                     elbow_plot) {
+  
+  # Plot elbowplot to determine dimensionality
+  if (plots.on) { png(elbow_plot, width = 1000, height=1000, unit="px") }
+  print(ElbowPlot(object = sc.seurat, ndims=50))
+  if (plots.on) { dev.off() }
+  
+}
+
