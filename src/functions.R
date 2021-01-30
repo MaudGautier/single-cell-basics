@@ -137,3 +137,31 @@ determine_dimensionality <- function(sc.seurat,
   
 }
 
+
+
+# Cluster cells -----------------------------------------------------------
+
+# Cluster and visualise UMAP
+cluster_and_visualise <- function(sc.seurat, 
+                                  nb_dims, 
+                                  UMAP_plot, 
+                                  resolution = 0.5,
+                                  plots.on = TRUE) {
+  
+  # Run UMAP
+  sc.seurat <- RunUMAP(object = sc.seurat, dims = 1:nb_dims)
+  
+  # Find clusters
+  sc.seurat <- FindNeighbors(object = sc.seurat, dims = 1:nb_dims)
+  sc.seurat <- FindClusters(object = sc.seurat, resolution = resolution)
+  
+  # Plot UMAP
+  if (plots.on) { png(UMAP_plot, width = 800, height=800, unit="px") }
+  print(DimPlot(object = sc.seurat, reduction = 'umap'))
+  if (plots.on) { dev.off() }
+  
+  return(sc.seurat)
+  
+}
+
+

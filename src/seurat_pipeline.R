@@ -60,13 +60,6 @@ path_DA <- file.path(output_plots, "04_downstream_analysis")
 
 
 
-# # Path plots
-# path_vln_plot <- file.path(path_QC, "vln_plot.png")
-# path_feature_scatter_plot <- file.path(path_QC, "feature-scatter.png")
-# path_variable_feature_plot <- file.path(path_DR, "variable_features.png")
-# path_elbow_plot <- file.path(path_DR, "elbow-plot.png")
-# path_UMAP_plot <- file.path(path_CL, "UMAP.png")
-
 
 # Initialisation and quality check ----------------------------------------
 
@@ -114,4 +107,21 @@ determine_dimensionality(seurat_object,
 
 
 
+
+
+# Cluster cells -----------------------------------------------------------
+
+# Cluster cells after the SCTransform
+seurat_object <- cluster_and_visualise(seurat_object, nb_dims, 
+                                       UMAP_plot = file.path(path_CL, "UMAP.png"), 
+                                       resolution = resolution)
+
+# Cluster after standard normalisation
+seurat_object_NORMALISED <- ScaleData(object = seurat_object_NORMALISED, features = rownames(x = seurat_object_NORMALISED))
+seurat_object_NORMALISED <- FindVariableFeatures(object = seurat_object_NORMALISED)
+seurat_object_NORMALISED <- RunPCA(object = seurat_object_NORMALISED)
+seurat_object_NORMALISED <- cluster_and_visualise(seurat_object_NORMALISED, nb_dims, 
+                                                  UMAP_plot = NA, 
+                                                  resolution = resolution,
+                                                  plots.on = FALSE)
 
