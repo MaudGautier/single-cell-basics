@@ -150,3 +150,18 @@ plot_markers(seurat_object, path_DA,
              list_markers = c("S.Score", "G2M.Score", "nFeature_RNA"))
 
 
+
+
+
+# IC scores from Zynovyev method ------------------------------------------
+
+
+# Get ICs from Zynovyev method
+seurat_object <- add_scores_IC_zynovyev(seurat_object, zynov_IC_scores, name)
+
+# Plot ICs
+plot_markers(seurat_object, path_DA, 
+             list_markers = c("Zynov_IC_EwS_score", "Zynov_IC_ECM_score", "Zynov_IC_G1S_score", "Zynov_IC_G2M_score")
+             )
+
+

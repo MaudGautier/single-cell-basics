@@ -205,3 +205,49 @@ plot_markers <- function(sc.seurat,
 
 
 
+
+# IC scores from Zynovyev method ------------------------------------------
+
+add_scores_IC_zynovyev <- function(sc.seurat,
+                            file_IC_scores,
+                            name) {
+
+  # Ajouter IC-EwS
+  read_ICs <- read.table(file = file_IC_scores, 
+                         fill = TRUE,
+                         header=TRUE)
+  
+  IC_EwS_score <- read_ICs$IC10..1
+  IC_ECM_score <- read_ICs$IC30..1
+  IC_G1S_score <- read_ICs$IC2.
+  IC_G2M_score <- read_ICs$IC1.
+  if (name == "pdx1058") { 
+    names(IC_EwS_score) <- paste0(read_ICs$SAMPLE, "-1") 
+    names(IC_ECM_score) <- paste0(read_ICs$SAMPLE, "-1") 
+    names(IC_G1S_score) <- paste0(read_ICs$SAMPLE, "-1") 
+    names(IC_G2M_score) <- paste0(read_ICs$SAMPLE, "-1") 
+  } else {
+    names(IC_EwS_score) <- read_ICs$SAMPLE
+    names(IC_ECM_score) <- read_ICs$SAMPLE
+    names(IC_G1S_score) <- read_ICs$SAMPLE
+    names(IC_G2M_score) <- read_ICs$SAMPLE
+  }
+  sc.seurat <- AddMetaData(object = sc.seurat,
+                           metadata = IC_EwS_score,
+                           col.name = "Zynov_IC_EwS_score")
+  sc.seurat <- AddMetaData(object = sc.seurat,
+                           metadata = IC_ECM_score,
+                           col.name = "Zynov_IC_ECM_score")
+  sc.seurat <- AddMetaData(object = sc.seurat,
+                           metadata = IC_G1S_score,
+                           col.name = "Zynov_IC_G1S_score")
+  sc.seurat <- AddMetaData(object = sc.seurat,
+                           metadata = IC_G2M_score,
+                           col.name = "Zynov_IC_G2M_score")
+  
+  return(sc.seurat)
+  
+}
+
+
+
