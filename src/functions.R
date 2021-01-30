@@ -165,3 +165,43 @@ cluster_and_visualise <- function(sc.seurat,
 }
 
 
+
+
+# Individual markers and cell cycle ---------------------------------------
+
+# Get cell cycle info
+get_cell_cycle_info <- function(sc.seurat) {
+  sc.seurat <- Seurat::CellCycleScoring(
+    object = sc.seurat,
+    g2m.features = Seurat::cc.genes$g2m.genes,
+    s.features = Seurat::cc.genes$s.genes
+  )
+  return(sc.seurat)
+}
+
+# Plot certain markers
+plot_markers <- function(sc.seurat, 
+                         downstream_analysis_plots, 
+                         list_markers, 
+                         colors = NA,
+                         suffix = "",
+                         reduction = "umap",
+                         plots.on = T) {
+  
+  for (marker in list_markers) {
+    print(paste0("Plotting -- marker: ", marker, "..."))
+    
+    if (plots.on) { png(file.path(downstream_analysis_plots, paste0(marker, suffix, ".png"))) }
+    if (is.na(colors)) {
+      print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction))
+    }
+    else {
+      print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction,
+                                cols = colors))
+    }
+    if (plots.on) { dev.off() }
+  }
+}
+
+
+

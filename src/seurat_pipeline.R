@@ -125,3 +125,28 @@ seurat_object_NORMALISED <- cluster_and_visualise(seurat_object_NORMALISED, nb_d
                                                   resolution = resolution,
                                                   plots.on = FALSE)
 
+
+
+# Individual markers and cell cycle ---------------------------------------
+
+
+# Plot features for a list of markers
+plot_markers(seurat_object, path_DA, 
+             list_markers = c("CD99", "FLI1", "PAPPA"))
+
+# Define cell-cycle S.Score and G2M.score and plot them
+seurat_object_NORMALISED <- get_cell_cycle_info(seurat_object_NORMALISED)
+seurat_object <- AddMetaData(object = seurat_object,
+                             metadata = seurat_object_NORMALISED$S.Score,
+                             col.name = "S.Score")
+seurat_object <- AddMetaData(object = seurat_object,
+                             metadata = seurat_object_NORMALISED$G2M.Score,
+                             col.name = "G2M.Score")
+plot_markers(seurat_object, path_DA, 
+             list_markers = c("S.Score", "G2M.Score", "nFeature_RNA"), 
+             colors = c("blue", "yellow", "red"), 
+             suffix = "_BYR")
+plot_markers(seurat_object, path_DA, 
+             list_markers = c("S.Score", "G2M.Score", "nFeature_RNA"))
+
+
