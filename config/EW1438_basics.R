@@ -56,7 +56,7 @@ nb_dims <- 10
 resolution <- 0.5 # Play on the resolution value to modify the number of clusters
 
 # Print individual markers
-list_markers <- c("CD99", "FLI1", "PAPPA")
+list_markers <- c("CD99", "FLI1", "PAPPA", "IL1RAP", "LOX", "ICAM1")
 
 # Save RDS
 save_rds <- TRUE
