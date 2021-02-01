@@ -18,8 +18,7 @@
 # Usage -------------------------------------------------------------------
 
 # From the CLI:
-# Rscript ./src/seurat_pipeline.R ./config/seurat_pipeline_EW1438.R
-
+# Rscript ./src/seurat_pipeline.R ./config/EW1438_basics.R
 
 
 
@@ -34,13 +33,8 @@ dataset <- file.path(main_folder, "data", name, "filtered_feature_bc_matrix")
 output_plots <- file.path(main_folder, "plots", name)
 
 
-
 # Pipeline parameters
 plots.on <- TRUE
-# recap.info <- TRUE
-# normalisation <- FALSE # Useless if SCTransform
-# use.sctransform <- TRUE
-
 
 # Parameteters to (re)define after evaluating QC plots
 all_features <- TRUE
