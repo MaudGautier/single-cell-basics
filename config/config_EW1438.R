@@ -55,6 +55,9 @@ nb_dims <- 10
 # Clusterisation
 resolution <- 0.5 # Play on the resolution value to modify the number of clusters
 
+# Print individual markers
+list_markers <- c("CD99", "FLI1", "PAPPA")
+
 # Save RDS
 save_rds <- TRUE
 file_rds <- file.path(main_folder, "rds", paste0(name, ".rds"))

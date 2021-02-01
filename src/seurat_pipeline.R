@@ -132,7 +132,7 @@ seurat_object_NORMALISED <- cluster_and_visualise(seurat_object_NORMALISED, nb_d
 
 # Plot features for a list of markers
 plot_markers(seurat_object, path_DA, 
-             list_markers = c("CD99", "FLI1", "PAPPA"))
+             list_markers = list_markers)
 
 # Define cell-cycle S.Score and G2M.score and plot them
 seurat_object_NORMALISED <- get_cell_cycle_info(seurat_object_NORMALISED)
