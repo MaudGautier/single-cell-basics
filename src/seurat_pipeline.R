@@ -156,6 +156,8 @@ plot_markers(seurat_object, path_DA,
 
 # Save RDS
 if (save_rds) {
+  folder_rds <- dirname(file_rds)
+  init_folder(folder_rds)
   print(paste0("Seurat object will be saved at ", file_rds))
   saveRDS(object = seurat_object, file = file_rds)
 }
