@@ -191,15 +191,22 @@ plot_markers <- function(sc.seurat,
   for (marker in list_markers) {
     print(paste0("Plotting -- marker: ", marker, "..."))
     
-    if (plots.on) { png(file.path(downstream_analysis_plots, paste0(marker, suffix, ".png"))) }
-    if (is.na(colors)) {
-      print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction))
+    
+    if (!sum(c(rownames(sc.seurat@assays[["RNA"]]), rownames(sc.seurat)) == marker)) {
+      # Stop if marker not in sc.seurat
+      print(paste0("Gene not found:", marker))
+    } else {
+      # Else, create the fetaure plot
+      if (plots.on) { png(file.path(downstream_analysis_plots, paste0(marker, suffix, ".png"))) }
+      if (is.na(colors)) {
+        print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction))
+      }
+      else {
+        print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction,
+                                  cols = colors))
+      }
+      if (plots.on) { dev.off() }
     }
-    else {
-      print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction,
-                                cols = colors))
-    }
-    if (plots.on) { dev.off() }
   }
 }
 

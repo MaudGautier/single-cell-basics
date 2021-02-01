@@ -50,7 +50,9 @@ nb_dims <- 10
 resolution <- 0.5 # Play on the resolution value to modify the number of clusters
 
 # Print individual markers
-list_markers <- c("CD99", "FLI1", "PAPPA", "IL1RAP", "LOX", "ICAM1")
+g <- read.csv("/Users/maudgautier/Documents/data/tmp_from_calcsub/nadege/Genes_selection.csv")
+list_markers <- c(g$Seurat_name, "CD99", "FLI1", "PAPPA", "IL1RAP", "LOX", "ICAM1")
+
 
 # Save RDS
 save_rds <- TRUE
