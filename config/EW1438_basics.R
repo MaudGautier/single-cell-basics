@@ -2,7 +2,7 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 #                                                                              #
-# config_EW1438.R                                                              #
+# EW1438_basics.R                                                              #
 #                                                                              #
 # By: Maud Gautier <https://github.com/MaudGautier>, 2021                      #
 #                                                                              #

@@ -52,7 +52,6 @@ import_libraries()
 
 
 # Define paths to output plots
-#cluster_dir <- file.path(sample_dir, "clusters-markers/")
 path_QC <- file.path(output_plots, "01_QC")
 path_DR <- file.path(output_plots, "02_dim_reduction")
 path_CL <- file.path(output_plots, "03_clustering")
