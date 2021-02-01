@@ -41,6 +41,7 @@ vignettes/*.pdf
 # Data folders
 data/
 plots/
+rds/
 
 # Data output
 **/Rplots.pdf
