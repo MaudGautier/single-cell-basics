@@ -13,6 +13,11 @@
 
 # This script contains the successive steps of a basic Seurat pipeline to
 # analyse single-cell datasets sequenced with the 10X technology.
+# This pipeline will run : 
+# - the creation of quality check plots
+# - dimensionality reduction
+# - clusterisation
+# - feature plots of individual markers and cell cycle G2M and S scores
 
 
 # Usage -------------------------------------------------------------------
