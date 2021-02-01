@@ -152,6 +152,17 @@ plot_markers(seurat_object, path_DA,
 
 
 
+# Save RDS ----------------------------------------------------------------
+
+# Save RDS
+if (save_rds) {
+  print(paste0("Seurat object will be saved at ", file_rds))
+  saveRDS(object = seurat_object, file = file_rds)
+}
+
+
+
+
 
 # IC scores from Zynovyev method ------------------------------------------
 
