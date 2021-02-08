@@ -42,7 +42,8 @@ vignettes/*.pdf
 data/
 plots/
 rds/
-
-# Data output
 **/Rplots.pdf
 
+# MacOS files
+**/.*.swp
+**/.DS_Store
