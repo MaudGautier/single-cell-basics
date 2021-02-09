@@ -11,8 +11,8 @@
 #                                                                              #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-# This is the configuration file to analyse the EW1438 single-cell dataset
-# with the basic Seurat pipeline.
+# This is the configuration file to plot a gene signature on the EW1438 
+# single-cell dataset.
 
 
 # Usage -------------------------------------------------------------------
@@ -36,7 +36,7 @@ output_plots <- file.path(main_folder, "plots", name)
 file_rds <- file.path(main_folder, "rds", paste0(name, ".rds"))
 
 # List signatures
-list_signatures <- c("IC10")
 file_signatures <- "/Users/maudgautier/Documents/data/tmp_from_calcsub/nadege/List_IC10plus.csv"
+list_signatures <- c("IC10")
 
 
