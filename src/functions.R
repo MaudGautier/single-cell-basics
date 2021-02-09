@@ -179,9 +179,29 @@ get_cell_cycle_info <- function(sc.seurat) {
   return(sc.seurat)
 }
 
+
+
+# Plotting ----------------------------------------------------------------
+
+# Plot one feature
+plot_a_feature <- function(sc.seurat, plots_dir, feature, colors = NA,
+                           suffix = "", reduction = "umap", 
+                           plots.on = TRUE) {
+  
+  if (plots.on) { png(file.path(plots_dir, paste0(feature, suffix, ".png"))) }
+  if (is.na(colors)) {
+    print(Seurat::FeaturePlot(object = sc.seurat, feature, reduction = reduction))
+  } else {
+    print(Seurat::FeaturePlot(object = sc.seurat, feature, reduction = reduction,
+                              cols = colors))
+  }
+  if (plots.on) { dev.off() }
+}
+
+
 # Plot certain markers
 plot_markers <- function(sc.seurat, 
-                         downstream_analysis_plots, 
+                         plots_dir, 
                          list_markers, 
                          colors = NA,
                          suffix = "",
@@ -189,27 +209,49 @@ plot_markers <- function(sc.seurat,
                          plots.on = T) {
   
   for (marker in list_markers) {
-    print(paste0("Plotting -- marker: ", marker, "..."))
-    
-    
     if (!sum(c(rownames(sc.seurat@assays[["RNA"]]), rownames(sc.seurat)) == marker)) {
       # Stop if marker not in sc.seurat
       print(paste0("Gene not found:", marker))
     } else {
-      # Else, create the fetaure plot
-      if (plots.on) { png(file.path(downstream_analysis_plots, paste0(marker, suffix, ".png"))) }
-      if (is.na(colors)) {
-        print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction))
-      }
-      else {
-        print(Seurat::FeaturePlot(object = sc.seurat, marker, reduction = reduction,
-                                  cols = colors))
-      }
-      if (plots.on) { dev.off() }
+      # Else, create the feature plot
+      print(paste0("Plotting -- marker: ", marker, "..."))
+      plot_a_feature(sc.seurat, plots_dir, marker, colors, suffix, reduction, plots.on)
     }
   }
 }
 
+
+
+# Plot signature
+plot_signature <- function(sc.seurat, file_signatures, sig_names, 
+                           plots_dir, seurat_assay = "SCT", 
+                           colors = NA, suffix = "", 
+                           reduction = "umap", plots.on = TRUE) {
+  
+  # Read signature file
+  signatures <- read.table(file_signatures, header = T)
+  
+  for (sig_name in sig_names) {
+    # Check that signature name in the column names
+    if(!sig_name %in% colnames(signatures)) {
+      print(print(paste(sig_name, "*not* in the column names of file", file_signatures)))
+      next
+    }
+    
+    # Add module score
+    gene_signature <- list()
+    gene_signature[[sig_name]] <- signatures[[sig_name]][which(signatures[[sig_name]] != "")]
+    sc.seurat <- AddModuleScore(object = sc.seurat,
+                                features = gene_signature, assay = seurat_assay,
+                                name = sig_name, search = T)
+
+    sc.seurat[[sig_name]]<- sc.seurat[[paste0(sig_name, "1")]]
+    
+    # Plot
+    plot_a_feature(sc.seurat, plots_dir, sig_name, colors, suffix, reduction, plots.on)
+  }
+  
+}
 
 
 
