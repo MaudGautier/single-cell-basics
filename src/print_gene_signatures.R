@@ -11,11 +11,7 @@
 #                                                                              #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-# This script contains the successive steps of a basic Seurat pipeline to
-# analyse single-cell datasets sequenced with the 10X technology.
-# This pipeline will run : 
-# - the creation of quality check plots
-# - 
+# This script allows to print gene signatures.
 
 
 # Usage -------------------------------------------------------------------
