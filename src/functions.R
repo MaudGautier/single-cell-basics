@@ -119,7 +119,7 @@ plot_variable_features <- function(sc.seurat,
   # plot variable features with and without labels
   plot1 <- VariableFeaturePlot(object = sc.seurat)
   plot2 <- LabelPoints(plot = plot1, points = var.features.top10, repel = TRUE)
-  #CombinePlots(plots = list(plot1, plot2))
+
   if (plots.on) { png(variable_feature_plot, width = 1500, height=1000, unit="px") }
   print(plot2)
   if (plots.on) { dev.off() }
@@ -167,7 +167,7 @@ cluster_and_visualise <- function(sc.seurat,
 
 
 
-# Individual markers and cell cycle ---------------------------------------
+# Cell cycle score --------------------------------------------------------
 
 # Get cell cycle info
 get_cell_cycle_info <- function(sc.seurat) {

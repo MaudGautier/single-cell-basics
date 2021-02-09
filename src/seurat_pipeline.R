@@ -60,15 +60,15 @@ import_libraries()
 path_QC <- file.path(output_plots, "01_QC")
 path_DR <- file.path(output_plots, "02_dim_reduction")
 path_CL <- file.path(output_plots, "03_clustering")
-path_DA <- file.path(output_plots, "04_downstream_analysis")
-
+path_IM <- file.path(output_plots, "04_individual_markers")
+path_CC <- file.path(output_plots, "05_cell_cycle_markers")
 
 
 
 # Initialisation and quality check ----------------------------------------
 
 # Create all subfolders for the sample
-for (folder in c(output_plots, path_QC, path_DR, path_CL, path_DA)) {
+for (folder in c(output_plots, path_QC, path_DR, path_CL, path_IM, path_CC)) {
   init_folder(folder)
 }
 
@@ -135,7 +135,7 @@ seurat_object_NORMALISED <- cluster_and_visualise(seurat_object_NORMALISED, nb_d
 
 
 # Plot features for a list of markers
-plot_markers(seurat_object, path_DA, 
+plot_markers(seurat_object, path_IM, 
              list_markers = list_markers)
 
 # Define cell-cycle S.Score and G2M.score and plot them
@@ -146,11 +146,11 @@ seurat_object <- AddMetaData(object = seurat_object,
 seurat_object <- AddMetaData(object = seurat_object,
                              metadata = seurat_object_NORMALISED$G2M.Score,
                              col.name = "G2M.Score")
-plot_markers(seurat_object, path_DA, 
+plot_markers(seurat_object, path_CC, 
              list_markers = c("S.Score", "G2M.Score", "nFeature_RNA"), 
              colors = c("blue", "yellow", "red"), 
              suffix = "_BYR")
-plot_markers(seurat_object, path_DA, 
+plot_markers(seurat_object, path_CC, 
              list_markers = c("S.Score", "G2M.Score", "nFeature_RNA"))
 
 
